@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nosso Namoro</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/index.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container text-center">
+        <div class="music-container">
+            <iframe src="https://open.spotify.com/embed/playlist/0A8v5L7CeBxaIB2rpaJrA0?utm_source=generator&theme=0" width="100%" height="100" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        </div>
+        <div class="photo-container">
+            <img id="random-photo" src="" alt="Nossa Foto" class="img-fluid anaejv">
+        </div>
+        <div class="date-container dating-time">
+            <p><strong id="dating-time"></strong><br>juntinhos ❤</p>
+        </div>
+        <div class="text-container">
+            <h3 class="text-fofinho">Para você se lembrar de quantos dias se passaram da minha melhor decisão... E que a gente possa voltar aqui e ver que os dias só aumentaram. Eu te amo eternamente minha princesinha ❤️</h3>
+        </div>
+        <div class="gif-container">
+            <div class="tenor-gif-embed primeiro-gif">
+                <img id="gif1" src="" alt="Gif fofo 1" class="gifzinho">
+            </div>
+            <div class="tenor-gif-embed segundo-gif">
+                <img id="gif2" src="" alt="Gif fofo 2" class="gifzinho">
+            </div>
+            <div class="tenor-gif-embed terceiro-gif">
+                <img id="gif3" src="" alt="Gif fofo 3" class="gifzinho">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Array com os caminhos das fotos
+        const photos = [
+            'assets/images/nois/adrporra.jpg',
+            'assets/images/nois/bjoelingua.jpg',
+            'assets/images/nois/euquando.jpg',
+            'assets/images/nois/inicin.jpg',
+            'assets/images/nois/kkkkkkkk.jpg',
+            'assets/images/nois/linguinha.jpg',
+            'assets/images/nois/nagi.jpg',
+            'assets/images/nois/noisfofo.jpg'
+        ];
+
+        // Array com os caminhos dos GIFs
+        const gifs = [
+            'assets/images/gifs/beijos-kisses.gif',
+            'assets/images/gifs/vontade.webp',
+            'assets/images/gifs/beijo-gato.gif'
+        ];
+
+        // Função para carregar aleatoriamente uma foto e três GIFs
+        function loadRandomImages() {
+            const randomPhotoIndex = Math.floor(Math.random() * photos.length);
+            const randomGifIndices = [];
+            while (randomGifIndices.length < 3) {
+                const randomIndex = Math.floor(Math.random() * gifs.length);
+                if (!randomGifIndices.includes(randomIndex)) {
+                    randomGifIndices.push(randomIndex);
+                }
+            }
+
+            document.getElementById('random-photo').src = photos[randomPhotoIndex];
+            document.getElementById('gif1').src = gifs[randomGifIndices[0]];
+            document.getElementById('gif2').src = gifs[randomGifIndices[1]];
+            document.getElementById('gif3').src = gifs[randomGifIndices[2]];
+        }
+
+        // Chama a função para carregar as imagens ao carregar a página
+        window.onload = loadRandomImages;
+
+        // Lógica para calcular e mostrar a data do namoro
+        const datingStartDate = new Date('2024-08-17T00:30:00');
+        function updateDatingTime() {
+            const now = new Date();
+            const diff = now - datingStartDate;
+
+            const months = Math.floor(diff / (1000 * 60 * 60 * 24 * 30));
+            const days = Math.floor((diff % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            function pluralize(value, singular, plural) {
+                return value === 1 ? singular : plural;
+            }
+
+            const timeString = `${months} ${pluralize(months, 'mês', 'meses')}, ` +
+                               `${days} ${pluralize(days, 'dia', 'dias')}, ` +
+                               `${hours} ${pluralize(hours, 'hora', 'horas')}<br>` +
+                               `${minutes} ${pluralize(minutes, 'minuto', 'minutos')}, ` +
+                               `${seconds} ${pluralize(seconds, 'segundo', 'segundos')}`;
+
+            document.getElementById('dating-time').innerHTML = timeString;
+        }
+
+        // Atualiza o tempo a cada segundo
+        setInterval(updateDatingTime, 1000);
+    </script>
+</body>
+</html>
