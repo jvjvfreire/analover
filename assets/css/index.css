@@ -38,6 +38,11 @@ body {
 #volume-control {
     width: 150px;
 }
+.btn-spotify{
+    color: #1ed760;
+    background: black;
+    border-color: #1ed760;
+}
 
 
 @keyframes fall {

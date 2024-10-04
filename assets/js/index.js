@@ -49,7 +49,7 @@ $(document).ready(function() {
         'assets/music/voce.mp3'
     ];
 
-    let currentTrackIndex = 0;
+    let currentTrackIndex = Math.floor(Math.random() * musicTracks.length);
     let isRepeating = false;
     let isShuffling = false;
     let sound = new Howl({
@@ -66,7 +66,6 @@ $(document).ready(function() {
     const volumeControl = document.getElementById('volume-control');
     const prevButton = document.getElementById('prev');
     const nextButton = document.getElementById('next');
-    const shuffleButton = document.getElementById('shuffle');
     const repeatButton = document.getElementById('repeat');
 
     const volumeIcon = document.getElementById('volume-icon');
@@ -84,8 +83,7 @@ $(document).ready(function() {
         }
     });
 
-    function loadTrack(index) {
-        currentTrackIndex = index;
+    function loadTrack() {
         sound.unload();
         sound = new Howl({
             src: [musicTracks[currentTrackIndex]],
@@ -114,23 +112,18 @@ $(document).ready(function() {
         } else {
             currentTrackIndex = (currentTrackIndex + 1) % musicTracks.length;
         }
-        loadTrack(currentTrackIndex);
+        loadTrack();
         sound.play();
     }
 
     function prevTrack() {
         currentTrackIndex = (currentTrackIndex - 1 + musicTracks.length) % musicTracks.length;
-        loadTrack(currentTrackIndex);
+        loadTrack();
     }
 
     function toggleRepeat() {
         isRepeating = !isRepeating;
         repeatButton.classList.toggle('active', isRepeating);
-    }
-
-    function toggleShuffle() {
-        isShuffling = !isShuffling;
-        shuffleButton.classList.toggle('active', isShuffling);
     }
 
     volumeControl.addEventListener('input', (e) => {
@@ -139,7 +132,6 @@ $(document).ready(function() {
 
     prevButton.addEventListener('click', prevTrack);
     nextButton.addEventListener('click', nextTrack);
-    shuffleButton.addEventListener('click', toggleShuffle);
     repeatButton.addEventListener('click', toggleRepeat);
 
     const photos = [
@@ -209,13 +201,13 @@ $(document).ready(function() {
         document.getElementById('dating-time').innerHTML = timeString;
     }
 
+    setRandomPhoto();
+    setRandomGif();
+    updateDatingTime();
     setInterval(updateDatingTime, 1000);
+    
+    window.onload = function() {
+        loadTrack();
 
-    window.onload = () => {
-        toggleShuffle();
-        currentTrackIndex = Math.floor(Math.random() * musicTracks.length);
-        loadTrack(currentTrackIndex);
-        setRandomPhoto();
-        setRandomGif();
-    };    
+    };
 });
