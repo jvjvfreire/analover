@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    const hearts = ['💘', '💗', '💓', '❤', '💞', '💝', '❣', '💖', '💟'];
+    const hearts = ['💘', '💗', '💓', '😘', '🌹', '🥰', '❤', '💞', '💝', '❣', '💖', '💟', '😋'];
 
     function createHeart() {
         const heart = document.createElement('span');
