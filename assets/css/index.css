@@ -8,6 +8,48 @@ body {
     background-size: 400% 400%;
     animation: gradientBackground 15s ease infinite;
 }
+.hearts-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+.heart {
+    position: absolute;
+    color: red;
+    font-size: 24px;
+    animation: fall linear infinite;
+}
+
+.music-player {
+    background-color: #333;
+    border-radius: 20px;
+    padding: 13px;
+}
+
+.music-player button {
+    margin: 0 5px;
+}
+
+#volume-control {
+    width: 150px;
+}
+
+
+@keyframes fall {
+    0% {
+        transform: translateY(-100px) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
 
 @keyframes gradientBackground {
     0% { background-position: 0% 0%; }
@@ -15,10 +57,14 @@ body {
     100% { background-position: 0% 0%; }
 }
 
+.photo-container{
+    padding-top: 5%;
+}
+
 .photo-container img {
     max-width: 100%;
     height: auto;
-    border-radius: 10px;
+    border-radius: 15px;
 }
 
 @media (max-width: 768px) {
@@ -26,14 +72,14 @@ body {
         max-width: 215px;
     }
     .dating-time p{
-        font-size: 17px;
+        font-size: 14px;
     }
     .dating-time strong{
-        font-size: 17px;
+        font-size: 14px;
     }
     .gif-container {
         display: flex;
-        padding-top: 10%;
+        padding-top: 7%;
     }
     .text-container{
         padding-top:8%;
@@ -41,20 +87,6 @@ body {
     .gifzinho{
         width: 75px;
         height: 60px;
-    }
-    .primeiro-gif{
-        padding-left: 3rem !important;
-        padding-right: 3rem !important;
-    }
-    .segundo-gif{
-        padding-right: 3rem !important;
-    }
-    .terceiro-gif{
-        padding-right: 3rem !important;
-    }
-    .gif-container {
-        display: flex;
-        padding-top: 10%;
     }
     .gifzinho{
         width: 75px;
@@ -72,22 +104,8 @@ body {
     .dating-time strong{
         font-size: 13px;
     }
-    .gif-container {
-        display: flex;
-        padding-top: 10%;
-    }
     .text-container{
         padding-top:2%;
-    }
-    .primeiro-gif{
-        padding-left: 10rem !important;
-        padding-right: 10rem !important;
-    }
-    .segundo-gif{
-        padding-right: 10rem !important;
-    }
-    .terceiro-gif{
-        padding-right: 10rem !important;
     }
     .gif-container {
         display: flex;

@@ -3,15 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nosso Namoro</title>
+    <title>ti amo mo</title>
+    <link rel="icon" href="assets/images/outros/favicon.png" type="image/x-icon">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/css/index.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
 </head>
 <body>
+    <script src="assets/js/index.js"></script>
     <div class="container text-center">
-        <div class="music-container">
-            <iframe src="https://open.spotify.com/embed/playlist/0A8v5L7CeBxaIB2rpaJrA0?utm_source=generator&theme=0" width="100%" height="100" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        <div class="music-player">
+            <button id="prev" class="btn btn-secondary"><i class="fa-solid fa-backward-fast"></i></button>
+            <button id="play-pause" class="btn btn-primary"><i class="fa-solid fa-play"></i></button>
+            <button id="next" class="btn btn-secondary"><i class="fa-solid fa-forward-fast"></i></button>
+            <button id="shuffle" class="btn btn-secondary"><i class="fa-solid fa-shuffle"></i></button>
+            <button id="repeat" class="btn btn-secondary"><i class="fa-solid fa-repeat"></i></button>
+            
+            <!-- Ícone de volume -->
+            <button id="volume-icon" class="btn btn-secondary"><i class="fa-solid fa-volume-up"></i></button>
+            
+            <!-- Controle de volume -->
+            <div id="volume-control-container" class="d-none">
+                <input id="volume-control" type="range" min="0" max="1" step="0.05" value="0.15">
+            </div>
         </div>
+        
         <div class="photo-container">
             <img id="random-photo" src="" alt="Nossa Foto" class="img-fluid anaejv">
         </div>
@@ -21,86 +41,19 @@
         <div class="text-container">
             <h3 class="text-fofinho">Para você se lembrar de quantos dias se passaram da minha melhor decisão... E que a gente possa voltar aqui e ver que os dias só aumentaram. Eu te amo eternamente minha princesinha ❤️</h3>
         </div>
-        <div class="gif-container">
-            <div class="tenor-gif-embed primeiro-gif">
+        <div class="gif-container row">
+            <div class="tenor-gif-embed col-4">
                 <img id="gif1" src="" alt="Gif fofo 1" class="gifzinho">
             </div>
-            <div class="tenor-gif-embed segundo-gif">
+            <div class="tenor-gif-embed col-4">
                 <img id="gif2" src="" alt="Gif fofo 2" class="gifzinho">
             </div>
-            <div class="tenor-gif-embed terceiro-gif">
+            <div class="tenor-gif-embed col-4">
                 <img id="gif3" src="" alt="Gif fofo 3" class="gifzinho">
             </div>
         </div>
     </div>
-
-    <script>
-        // Array com os caminhos das fotos
-        const photos = [
-            'assets/images/nois/adrporra.jpg',
-            'assets/images/nois/bjoelingua.jpg',
-            'assets/images/nois/euquando.jpg',
-            'assets/images/nois/inicin.jpg',
-            'assets/images/nois/kkkkkkkk.jpg',
-            'assets/images/nois/linguinha.jpg',
-            'assets/images/nois/nagi.jpg',
-            'assets/images/nois/noisfofo.jpg'
-        ];
-
-        // Array com os caminhos dos GIFs
-        const gifs = [
-            'assets/images/gifs/beijos-kisses.gif',
-            'assets/images/gifs/vontade.webp',
-            'assets/images/gifs/beijo-gato.gif'
-        ];
-
-        // Função para carregar aleatoriamente uma foto e três GIFs
-        function loadRandomImages() {
-            const randomPhotoIndex = Math.floor(Math.random() * photos.length);
-            const randomGifIndices = [];
-            while (randomGifIndices.length < 3) {
-                const randomIndex = Math.floor(Math.random() * gifs.length);
-                if (!randomGifIndices.includes(randomIndex)) {
-                    randomGifIndices.push(randomIndex);
-                }
-            }
-
-            document.getElementById('random-photo').src = photos[randomPhotoIndex];
-            document.getElementById('gif1').src = gifs[randomGifIndices[0]];
-            document.getElementById('gif2').src = gifs[randomGifIndices[1]];
-            document.getElementById('gif3').src = gifs[randomGifIndices[2]];
-        }
-
-        // Chama a função para carregar as imagens ao carregar a página
-        window.onload = loadRandomImages;
-
-        // Lógica para calcular e mostrar a data do namoro
-        const datingStartDate = new Date('2024-08-17T00:30:00');
-        function updateDatingTime() {
-            const now = new Date();
-            const diff = now - datingStartDate;
-
-            const months = Math.floor(diff / (1000 * 60 * 60 * 24 * 30));
-            const days = Math.floor((diff % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-            function pluralize(value, singular, plural) {
-                return value === 1 ? singular : plural;
-            }
-
-            const timeString = `${months} ${pluralize(months, 'mês', 'meses')}, ` +
-                               `${days} ${pluralize(days, 'dia', 'dias')}, ` +
-                               `${hours} ${pluralize(hours, 'hora', 'horas')}<br>` +
-                               `${minutes} ${pluralize(minutes, 'minuto', 'minutos')}, ` +
-                               `${seconds} ${pluralize(seconds, 'segundo', 'segundos')}`;
-
-            document.getElementById('dating-time').innerHTML = timeString;
-        }
-
-        // Atualiza o tempo a cada segundo
-        setInterval(updateDatingTime, 1000);
-    </script>
+    <div class="hearts-container"></div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
