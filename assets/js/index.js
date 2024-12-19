@@ -178,28 +178,52 @@ $(document).ready(function() {
     }
 
     const datingStartDate = new Date('2024-08-17T00:30:00');
+
     function updateDatingTime() {
         const now = new Date();
-        const diff = now - datingStartDate;
-
-        const months = Math.floor(diff / (1000 * 60 * 60 * 24 * 30));
-        const days = Math.floor((diff % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
+        let yearDiff = now.getUTCFullYear() - datingStartDate.getUTCFullYear();
+        let monthDiff = now.getUTCMonth() - datingStartDate.getUTCMonth();
+        let dayDiff = now.getUTCDate() - datingStartDate.getUTCDate();
+        let hourDiff = now.getUTCHours() - datingStartDate.getUTCHours();
+        let minuteDiff = now.getUTCMinutes() - datingStartDate.getUTCMinutes();
+        let secondDiff = now.getUTCSeconds() - datingStartDate.getUTCSeconds();
+    
+        if (secondDiff < 0) {
+            secondDiff += 60;
+            minuteDiff -= 1;
+        }
+        if (minuteDiff < 0) {
+            minuteDiff += 60;
+            hourDiff -= 1;
+        }
+        if (hourDiff < 0) {
+            hourDiff += 24;
+            dayDiff -= 1;
+        }
+        if (dayDiff < 0) {
+            const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0); // Último dia do mês anterior
+            dayDiff += prevMonth.getDate();
+            monthDiff -= 1;
+        }
+        if (monthDiff < 0) {
+            monthDiff += 12;
+            yearDiff -= 1;
+        }
+    
+        const totalMonths = yearDiff * 12 + monthDiff;
+    
         function pluralize(value, singular, plural) {
             return value === 1 ? singular : plural;
         }
-
-        const timeString = `${months} ${pluralize(months, 'mês', 'meses')}, ` +
-                            `${days} ${pluralize(days, 'dia', 'dias')}, ` +
-                            `${hours} ${pluralize(hours, 'hora', 'horas')}<br>` +
-                            `${minutes} ${pluralize(minutes, 'minuto', 'minutos')}, ` +
-                            `${seconds} ${pluralize(seconds, 'segundo', 'segundos')}`;
-
+    
+        const timeString = `${totalMonths} ${pluralize(totalMonths, 'mês', 'meses')}, ` +
+                           `${dayDiff} ${pluralize(dayDiff, 'dia', 'dias')}, ` +
+                           `${hourDiff} ${pluralize(hourDiff, 'hora', 'horas')}<br>` +
+                           `${minuteDiff} ${pluralize(minuteDiff, 'minuto', 'minutos')}, ` +
+                           `${secondDiff} ${pluralize(secondDiff, 'segundo', 'segundos')}`;
+    
         document.getElementById('dating-time').innerHTML = timeString;
-    }
+    }  
 
     setRandomPhoto();
     setRandomGif();
